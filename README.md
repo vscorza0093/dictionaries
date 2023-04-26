@@ -1,3 +1,8 @@
+# Mapping Types
+
+
+## Dictionaries
+
 * Dicionários são tipos mapeamento, suportam operador de associação in e função len(). São coleções de itens chave-valor.
 * Quando iterados, tipos mapeamento fornecem seus itens de forma desordenada.
 * No Python existem dois tipos de mapeamento nativos, dict e collections.defaultdict o termo comum para referí-los é dicionário
