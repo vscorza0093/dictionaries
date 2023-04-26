@@ -32,9 +32,9 @@
         KeyError: 2
 
 * Dicionários são como funções que são chamadas e instanciam um novo objeto dicionário baseado no argumento.
-*
+
 * Formas de instanciar dicionários
-*
+
         new_dict1 = dict({"id":"1234","name":"Vinicius"}) -> Literal
         new_dict2 = dict(id=1234, name="Vinicius") -> Argumentos palavras-chave
         new_dict3 = dict([("id",1234), ("name","Vinicius")]) -> Sequência
