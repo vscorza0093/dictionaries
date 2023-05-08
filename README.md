@@ -10,73 +10,86 @@
 * As chaves dos dicionários só suportam objetos hashable, imutáveis
 * Os valores dos dicionários suportam todo tipo de dados.
 
-        class Person():
-            def __init__(self) -> None:
-                pass
+```py
+class Person():
+    def __init__(self) -> None:
+        pass
 
-        good_dictionarie = {"key":"value",1:Person(),"numbers":[1, 2, 3, 4],"sets":{"set","inside","dictionarie"}}
+good_dictionarie = {"key":"value",1:Person(),"numbers":[1, 2, 3, 4],"sets":{"set","inside","dictionarie"}}
 
-        tuple_is_good = {"tuple":"is good"}
-        frozenset_too = {"frozenset":frozenset({"is good"})}
+tuple_is_good = {"tuple":"is good"}
+frozenset_too = {"frozenset":frozenset({"is good"})}
 
 
-        wrong_dictionarie = {{"chave":"valor", 1:Person()}, ["list","inside","dictionarie"], {"is","forbidden"}}
+wrong_dictionarie = {{"chave":"valor", 1:Person()}, ["list","inside","dictionarie"], {"is","forbidden"}}
 
-        ^^^
-        TypeError: unhashable type: 'dict'
+^^^
+TypeError: unhashable type: 'dict'
+```
 
 * Dicionários são mutáveis, então podemos adicionar e remover itens facilmente, porém, por serem desordenados, não possuem noção de posição de índice
 
-        print(good_dictionarie[2])
-        
-        KeyError: 2
+```py
+print(good_dictionarie[2])
+
+KeyError: 2
+```
 
 * Dicionários são como funções que são chamadas e instanciam um novo objeto dicionário baseado no argumento.
 
 * Formas de instanciar dicionários
 
-        new_dict1 = dict({"id":"1234","name":"Vinicius"}) -> Literal
-        new_dict2 = dict(id=1234, name="Vinicius") -> Argumentos palavras-chave
-        new_dict3 = dict([("id",1234), ("name","Vinicius")]) -> Sequência
-        new_dict4 = dict(zip(("id","name"),(1234,"Vinicius))) -> Sequência
-        new_dict5 = {"id":1234,"name":"Vinicius"} -> Literal
+```py
+new_dict1 = dict({"id":"1234","name":"Vinicius"}) -> Literal
+new_dict2 = dict(id=1234, name="Vinicius") -> Argumentos palavras-chave
+new_dict3 = dict([("id",1234), ("name","Vinicius")]) -> Sequência
+new_dict4 = dict(zip(("id","name"),(1234,"Vinicius))) -> Sequência
+new_dict5 = {"id":1234,"name":"Vinicius"} -> Literal
+```
 
 * A função embutida zip(), retorna uma lista de tuplas; a primeira com os itens de cada argumento iterável da função zip();
 
 * Para adicionar itens ao dicionários atribuímos um valor a uma chave com o operador =
-        new_dict1["x"] = 200000
 
+```py
+new_dict1["x"] = 200000
+```
 * Para remover, utilizamos del
-        del(new_dict1["name"])
+```py
+del(new_dict1["name"])
+```
 
 * Existem várias maneiras de iterar através de um dicionário. Podemos iterar por  uso de itens (chave e valor), através de valores e através de chaves
 
 * O método items() é de grande valia nesse procedimento, pois ele retorna o item completo (chave e valor) de cada linha do dicionário, e podemos acessar esses  itens da forma que desejarmos (essa forma de trazer iterabilidade ao dicionário é conhecida como visualizações de dicionário)
 
-        print ("\n---Method 1---")
-        for item in good_dictionarie.items():
-            print(item)
+```py
+print ("\n---Method 1---")
+for item in good_dictionarie.items():
+    print(item)
 
-        print ("\n---Method 2---")
-        for item in good_dictionarie.items():
-            print(item[0], item[1])
+print ("\n---Method 2---")
+for item in good_dictionarie.items():
+    print(item[0], item[1])
 
-        print("\n---Method 3---")
-        for key, value in good_dictionarie.items():
-            print(key,value)
+print("\n---Method 3---")
+for key, value in good_dictionarie.items():
+    print(key,value)
+```
 
 * Sem a utilização do método items() iteraremos por cada item do dicionário mas teremos como resposta apenas a sua chave
 
-        print("\n---Method 1 without items()---")
-        print("It will return keys:\n")
-        for item in good_dictionarie:
-            print(item)
+```py
+print("\n---Method 1 without items()---")
+print("It will return keys:\n")
+for item in good_dictionarie:
+    print(item)
 
-        print("\n---Method 2 without items()---")
-        print("It will return values:\n")
-        for item in good_dictionarie:
-            print(good_dictionarie[item])
-            
+print("\n---Method 2 without items()---")
+print("It will return values:\n")
+for item in good_dictionarie:
+    print(good_dictionarie[item])
+```        
 
 * dict.items(), dict.keys() também são visualizações de dicionário.
 * Uma visualização de dicionário é um objeto somento leitura que, aparentemente, armazena os itens, ou chaves, ou valores de um dicionário.
@@ -91,29 +104,32 @@
 
 *  Além de utilizar o operador de associação in para verificar a existência de uma chave dentro de um dicionário, podemos utilizar o operador de interseção, para visualizar quais chaves de um set estão dentro de um dicionário:
 
-        d = {}.fromkeys("ABCD", 3)
-        s = set("ACX")
-        matches = d.keys() & s
-        * {'A', 'C'}
-
+```py
+d = {}.fromkeys("ABCD", 3)
+s = set("ACX")
+matches = d.keys() & s
+* {'A', 'C'}
+```
 
 * Aqui temos um programa completo que lista cada palavra e o número de vezes que ela ocorre, em ordem alfabética, para todos os arquivos listados na linha de comando
 
-        import string
-        import sys
+```py
+import string
+import sys
 
-        words = {}
-        strip = string.whitespace + string.punctuation + string.digits + "\"'"
-        for filename in sys.argv[1:]:
-        for line in open(filename):
-                for word in line.lower().split():
-                word = word.strip(strip)
-                if len(word) > 1:
-                        words[word] = words.get(word, 0) + 1
-        for word in sorted(words):
-        print("'{0}' occurs {1} times".format(word, words[word]))
+words = {}
+strip = string.whitespace + string.punctuation + string.digits + "\"'"
+for filename in sys.argv[1:]:
+for line in open(filename):
+        for word in line.lower().split():
+        word = word.strip(strip)
+        if len(word) > 1:
+                words[word] = words.get(word, 0) + 1
+for word in sorted(words):
+print("'{0}' occurs {1} times".format(word, words[word]))
 
-        print(words)
+print(words)
+```
 
 * Cria-se um dicionário vazio, em seguida é criada uma string que contém todos os caracteres que queremos ignorar, concatenando algumas strings úteis fornecidas pelo pacote string.
 * Em seguida iteramos sobre cada linha do arquivo filename que foi recebido pelo método open()
@@ -126,29 +142,31 @@
 
 * Aqui temos um exemplo de como lidar com o mesmo tipo de problema, só que cada valor sendo, por si próprio, uma coleção
 
-        sites = {}
-        for filename in sys.argv[1:]:
-        for line in open(filename):
-                i = 0
-                while True:
-                site = None
-                i = line.find("http://", i)
-                if i > -1:
-                        i += len("http://")
-                        for j in range(i, len(line)):
-                        if not (line[j].isalnum() or line[j] in ".-"):
-                                site = line[i:j].lower()
-                                break
-                        if site and "." in site:
-                        sites.setdefault(site, set()).add(filename)
-                        i = j
-                else:
+```py
+sites = {}
+for filename in sys.argv[1:]:
+for line in open(filename):
+        i = 0
+        while True:
+        site = None
+        i = line.find("http://", i)
+        if i > -1:
+                i += len("http://")
+                for j in range(i, len(line)):
+                if not (line[j].isalnum() or line[j] in ".-"):
+                        site = line[i:j].lower()
                         break
+                if site and "." in site:
+                sites.setdefault(site, set()).add(filename)
+                i = j
+        else:
+                break
 
-        for site in sorted(sites):
-        print("{0} is referred to in:".format(site))
-        for filename in sorted(sites[site], key=str.lower):
-                print("     {0}".format(filename))
+for site in sorted(sites):
+print("{0} is referred to in:".format(site))
+for filename in sorted(sites[site], key=str.lower):
+        print("     {0}".format(filename))
+```
 
 * Começamos criando um dicionário vazio, iteramos sobre cada linha do arquivo listado na linha de comando e cada linha dentro dos limites de cada arquivo.
 * Cada linha pode se referir a qualquer número de sites, por isso que é bom mantermos a chamada str.find(), até que a mesma falhe.
@@ -162,7 +180,6 @@
 
 * A chamada sorted() externa ao loop for, ordena todas as chaves do dicionário -> Sempre que um dicionário é usado num contexto que requer um iterável, são as chaves que são utilizadas.
 
-
 ## Compreensão de dicionário
 
 * A compreensão de dicionários é uma expressão e um loop com uma condição opicional entre chaves.
@@ -172,25 +189,28 @@
 
 * Exemplo de como utilizar a compreensão de dicionários a fim de criar um dicionário o qual cada chave seja o nome de um arquivo no diretório corrente e cada valor seja o tamanho do arquivo em bytes
 
-        import os
+```py
+import os
 
-        file_sizes = {name: os.path.getsize(name) for name in os.listdir(".")}
-
+file_sizes = {name: os.path.getsize(name) for name in os.listdir(".")}
+```
 
 * A função os.listdir() do módulo os retorna uma lista de arquivos e diretórios no caminho que foi passado, ainda que ele nunca inclua "." ou ".." na lista. A função os.path.getsize() retorna o tamanho de um arquivo dado em bytes. Podemos evitar diretórios e outras entradas que não são arquivos adicionando uma condição:
 
-        file_sizes2 = {name: os.path.getsize(name) for name in os.listdir(".") if os.path.isfile(name)}
-
+```py
+file_sizes2 = {name: os.path.getsize(name) for name in os.listdir(".") if os.path.isfile(name)}
+```
 
 * A função isfile() do módulo os.path retorna True caso o argumento passado seja um arquivo e falso caso não seja.
 * Também existem as funções islink(), isdir(), isabs() entre outas funções 
 
 * A compreensão de dicionários também pode ser usada para criar dicionários invertidos, onde as chaves são os valores e os valores são as chaves
 
-        inverted_dict = {v: k for k, v in file_sizes.items()}
+```py
+inverted_dict = {v: k for k, v in file_sizes.items()}
 
-        for k, v in inverted_dict.items():
-        print(k, v)
-
+for k, v in inverted_dict.items():
+print(k, v)
+```
 
 ## Dicionários Padrão (default dict)
